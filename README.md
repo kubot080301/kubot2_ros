@@ -45,3 +45,5 @@ roslaunch kubot_bringup bringup.launch
 roslaunch kubot_navigation gmapping.launch
 ```
 # KUBOT2_ROS
+
+![](https://img.onl/G8Xmrb)
