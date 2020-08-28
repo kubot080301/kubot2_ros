@@ -207,6 +207,23 @@ class Strip:
             self.show()
             self.delay(20)
 
+    def wheel(pos):
+        if pos < 85:
+            return Color(pos * 3, 255 - pos * 3, 0)
+        elif pos < 170:
+            pos -= 85
+            return Color(255 - pos * 3, 0, pos * 3)
+        else:
+            pos -= 170
+            return Color(0, pos * 3, 255 - pos * 3)
+
+    def kubot_rainbow(self, num):
+        for j in range(256*100):
+            for i in range(num):
+                self.setPixelColor(i, wheel((int(i * 256 / num()) + j) & 255))
+        self.show()
+        self.delay(20)
+
     def demo(self):
         self.clear()
         print("clear")
@@ -291,6 +308,8 @@ def main(argv):
         s.backward(num)
     if mode == 9:
         s.blink_red()
+    if mode == 10:
+        s.kubot_rainbow(num)
 
     s.close()
 
