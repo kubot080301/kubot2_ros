@@ -1,7 +1,7 @@
 #include "serial_transport2.h"
 #include <ros/ros.h>
 
-Serial_transport2::Serial_transport2(std::string port, int32_t buadrate) : m_port(port), m_buadrate(buadrate), m_timeout_us(1000*1000)
+Serial_transport2::Serial_transport2(std::string port, int32_t buadrate) : m_port(port), m_buadrate(buadrate), m_timeout_us(150*1000)
 {
     m_timeoutFlag = false;
 }

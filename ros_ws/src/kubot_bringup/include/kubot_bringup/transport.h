@@ -27,5 +27,3 @@ public:
 
 
 #endif /* TRANSPORT_BASE_H_ */
-
-// KUBOT_TRANSPORT_H_

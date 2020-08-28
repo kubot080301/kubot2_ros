@@ -28,5 +28,3 @@ private:
 
 
 #endif /* TRANSPORT_SERIAL_H_ */
-
-// KUBOT_SERIAL_TRANSPORT2_H_

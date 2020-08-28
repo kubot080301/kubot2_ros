@@ -29,5 +29,3 @@ class Dataframe{
 };
 
 #endif
-
-// KUBOT_DATAFRAME_H_

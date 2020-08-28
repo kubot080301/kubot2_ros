@@ -11,7 +11,7 @@ public:
 	unsigned int parity;
 	unsigned int stopBits;
 	SerialParams() :
-			serialPort(), baudRate(115200), flowControl(0), parity(0), stopBits(0)
+			serialPort(), baudRate(921600), flowControl(0), parity(0), stopBits(0)
 	{
 	}
 	SerialParams(
@@ -73,5 +73,3 @@ private:
 
 
 #endif /* TRANSPORT_SERIAL_H_ */
-
-// KUBOT_SERIAL_TRANSPORT_H_

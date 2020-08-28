@@ -5,9 +5,7 @@
   <description>The kubot_bringup package</description>
   <!-- KUBOT ROS  -->
 
-  <author>KUBOT</author>
-  <!-- KUBOT ROS  -->
-  <maintainer email="YunHong.Wang@ShaYangYe.com">Yun-Hong</maintainer>
+  <maintainer email="robot@todo.todo">robot</maintainer>
 
   <license>TODO</license>
 

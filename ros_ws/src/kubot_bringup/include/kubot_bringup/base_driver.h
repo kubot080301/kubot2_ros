@@ -91,5 +91,3 @@ private:
 
   ros::Publisher raw_imu_pub;
 };
-
-// KUBOT_BASE_DRIVER_H_

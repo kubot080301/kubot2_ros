@@ -11,5 +11,3 @@ class Queue{
 };
 
 #endif
-
-// KUBOT_QUEUE_H_
