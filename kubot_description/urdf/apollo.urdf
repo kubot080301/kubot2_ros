@@ -1,0 +1,151 @@
+<robot
+  name="kubot_description">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="4.7982" />
+      <inertia
+        ixx="0.09617045"
+        ixy="3.5340082E-05"
+        ixz="2.5462637E-04"
+        iyy="0.1155512"
+        iyz="-4.2933341E-05"
+        izz="1.0718441E-01" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://kubot_description/meshes/apollo/base_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 205 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://kubot_description/meshes/apollo/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="laser_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.14" />
+      <mass
+        value="0.17934" />
+      <inertia
+        ixx="8.4514E-05"
+        ixy="7.288E-12"
+        ixz="3.6379E-06"
+        iyy="7.9969E-05"
+        iyz="-3.7962E-10"
+        izz="0.00011888" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.14" />
+      <geometry>
+        <mesh
+          filename="package://kubot_description/meshes/apollo/laser_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="123 100 230 5" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.14" />
+      <geometry>
+        <mesh
+          filename="package://kubot_description/meshes/apollo/laser_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="laser_link_joint"
+    type="fixed">
+    <origin
+      xyz="0.001 0 0.001"
+      rpy="0 0 3.14" />
+    <parent
+      link="base_link" />
+    <child
+      link="laser_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  
+  <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.17932" />
+      <inertia
+        ixx="8.4489E-05"
+        ixy="7.2842E-12"
+        ixz="3.6373E-06"
+        iyy="7.9944E-05"
+        iyz="-3.7959E-10"
+        izz="0.00011884" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://kubot_description/meshes/sensor/astra.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="123 100 230 4" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0.156 0 0.156"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://kubot_description/meshes/sensor/astra.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_link_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="1.2246E-16 -6.123E-17 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

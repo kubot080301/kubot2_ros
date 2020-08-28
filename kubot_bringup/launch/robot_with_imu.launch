@@ -1,0 +1,9 @@
+<launch>
+  <arg name="lidar" default="$(env KUBOT_LIDAR)" doc="lidar type [rplidar, eai-x4, eai-g4]"/>
+
+  <include file="$(find kubot_bringup)/launch/bringup_with_imu.launch"/>
+  <include file="$(find kubot_bringup)/launch/model.launch"/>
+
+  <include file="$(find kubot_bringup)/launch/$(arg lidar).launch"/>
+  <include file="$(find kubot_bringup)/launch/box_filter_example.launch"/>
+</launch>

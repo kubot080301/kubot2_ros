@@ -1,0 +1,39 @@
+<launch>
+    <node pkg="tf" type="static_transform_publisher" name="broadcaster_laser"
+        args="0.26 0 0.55 0 0 0 /base_link /camera_depth_frame 100" />
+   
+    <include file="$(find freenect_launch)/launch/freenect.launch">
+        <arg name="publish_tf" default="false" />
+
+        <!-- use device registration -->
+        <arg name="depth_registration"              value="true" /> 
+
+        <arg name="rgb_processing"                  value="false" />
+        <arg name="ir_processing"                   value="false" />
+        <arg name="depth_processing"                value="true" />
+        <arg name="depth_registered_processing"     value="true" />
+        <arg name="disparity_processing"            value="false" />
+        <arg name="disparity_registered_processing" value="false" />
+        <arg name="sw_registered_processing"        value="false" />
+        <arg name="hw_registered_processing"        value="true" />
+    </include>
+   
+    <arg name="image" default="/camera/depth_registered/image_raw" />
+    <arg name="camera_info" default="/camera/depth_registered/camera_info" />
+    <arg name="scan" default="/scan" />    
+    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+        <remap from="image" to="$(arg image)" />
+        <remap from="camera_info" to="$(arg camera_info)" />
+        <remap from="scan" to="$(arg scan)" />
+       
+        <param name="scan_height" value="5" />
+        <param name="scan_time" value="1/30.0" />
+        <param name="range_min" value="0.8" />
+        <param name="range_max" value="3.0" />
+        <param name="output_frame_id" value="/camera_link" />
+    </node>
+
+    <node name="pub_compressed_image" pkg="image_transport" type="republish" args="raw in:=/camera/rgb/image_raw compressed out:=/usb_cam/image_compressed">
+    <remap from="/usb_cam/image_compressed/compressed" to="/compressed_image"/>
+  </node>
+</launch>

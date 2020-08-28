@@ -1,0 +1,5 @@
+<launch>
+    <node name="kubot_driver" pkg="kubot_bringup" type="kubot_driver" output="screen">
+        <rosparam file="$(find kubot_bringup)/params/base_params.yaml" command="load"/>
+    </node>
+</launch>
