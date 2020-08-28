@@ -1,0 +1,10 @@
+[Unit]
+Description=this is kubot service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kubot_start
+ExecStop=/usr/bin/kubot_stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+<launch>
+
+  <node pkg="led_strip" type="led_keyboard.py" name="led_key_node" output="screen">
+  <param name="serial_port"	type="string" value="/dev/ttyUSB1"/>
+
+</launch>

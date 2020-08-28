@@ -1,0 +1,15 @@
+#source ros
+source /opt/ros/kinetic/setup.bash
+source /opt/ros/kinetic/setup.zsh
+
+LOCAL_IP=192.168.172.1
+export ROS_IP=$LOCAL_IP
+export ROS_HOSTNAME=$LOCAL_IP
+export KUBOT_MODEL=apolloX
+export KUBOT_LIDAR=rplidar
+export KUBOT_BOARD=arduino
+export ROS_MASTER_URI=http://$LOCAL_IP:11311
+
+#source kubot
+source /home/kubot/kubot2_ros/ros_ws/devel/setup.bash
+source /home/kubot/kubot2_ros/ros_ws/devel/setup.zsh
