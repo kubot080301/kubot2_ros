@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import rospy
 from geometry_msgs.msg import Twist, Pose
 from interactive_markers.interactive_marker_server import *

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
 

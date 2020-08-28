@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-import serial ## pip install pyserial
+#!/usr/bin/env python3
+import serial ## pip3 install pyserial
 import time
 import sys, getopt
 

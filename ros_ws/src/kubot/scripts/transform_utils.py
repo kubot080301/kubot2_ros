@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """ A couple of handy conversion utilities taken from the turtlebot_node.py script found in the
     turtlebot_node ROS package at:
