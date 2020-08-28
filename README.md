@@ -39,11 +39,11 @@ catkin_make
 source ~/.zshrc
 ```
 ##### Then you can enjoy KUBOT ROS !!
-try roslaunch or keyin kubot_[TAB]() [TAB](), You can see many of the features command
+try roslaunch or keyin kubot_ *TAB* *TAB*, You can see many of the features command
 ```sh
 roslaunch kubot_bringup bringup.launch
 roslaunch kubot_navigation gmapping.launch
 ```
 # KUBOT2_ROS
 
-![](https://img.onl/G8Xmrb)
+![](https://img.onl/s7yqkE)
