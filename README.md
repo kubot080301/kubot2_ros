@@ -1,6 +1,6 @@
 # KUBOT ROS1 WORKSPACE V2.1
 
-![N|Solid](https://doc-10-0k-docs.googleusercontent.com/docs/securesc/s694nfp0r5lheuocs5qmvoc3lg6b03j4/7bbfai10kka4puit3nnrd5v6b57mvo4a/1598592225000/12743253038928060072/08316776303621189044Z/1W__aPDjBQkkxBbREtiuewZmtmhBTm03N)
+![](https://img.onl/ZLiQM0)
 
 >KUBOT ROS package is developed by Taiwan ShaYangYe Co.Ltd RD400.
 >Thanks to ROS wiki, Turtlebot, Pibot, Neuronbot and a large number of ROS users. This package includes the functions to bring up the kubot robot, to make it SLAM, to Navigation, and to simulate it with your own computer. 
@@ -44,4 +44,4 @@ try roslaunch or keyin kubot_[TAB]() [TAB](), You can see many of the features c
 roslaunch kubot_bringup bringup.launch
 roslaunch kubot_navigation gmapping.launch
 ```
-# KUBOT
+# KUBOT2_ROS
