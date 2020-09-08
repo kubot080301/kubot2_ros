@@ -200,6 +200,6 @@ echo "alias kubot_motor1='rosrun rqt_plot rqt_plot /motor1_input /motor1_output'
 echo "alias kubot_motor2='rosrun rqt_plot rqt_plot /motor2_input /motor2_output'" >> ~/.kubotrc
 echo "alias kubot_motor_run='rostopic pub cmd_vel linear x:0.2 y:0.0 z:0.0 angular x:0.0 y:0.0 z:0.0 -r 20'" >> ~/.kubotrc
 
-echo "alias kubot_one='roslaunch kubot_navigation gmapping_with_imu\ _with_cam.launch'" >> ~/.kubotrc
+echo "alias kubot_one='roslaunch kubot_navigation gmapping_with_imu_with_cam.launch'" >> ~/.kubotrc
 # KUBOT2
 # KUBOT_INIT_ENV_SH_
