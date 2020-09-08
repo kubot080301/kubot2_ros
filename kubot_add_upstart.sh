@@ -9,4 +9,4 @@ sudo systemctl daemon-reload
 sudo systemctl enable kubot
 sudo systemctl is-enabled kubot
 
-# KUBOT_ADD_UPSTART_SH_
+# KUBOT2_ADD_UPSTART_SH_

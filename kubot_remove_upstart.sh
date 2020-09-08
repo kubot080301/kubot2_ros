@@ -3,4 +3,4 @@
 sudo systemctl disable kubot
 sudo systemctl is-enabled kubot
 
-# KUBOT_REMOVE_UPSART_SH_
+# KUBOT2_REMOVE_UPSART_SH_
