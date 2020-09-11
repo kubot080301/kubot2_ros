@@ -8,17 +8,17 @@
 # Install KUBOT ROS
 ###### Currently supports Kinetic and Melodic ROS versions
 # 
-1.[Install ROS](http://wiki.ros.org/ROS/Installation)
+1. [Install ROS](http://wiki.ros.org/ROS/Installation)
 
-2.Download KUBOT package   
+2. Download KUBOT package   
 ```sh
 git clone https://github.com/kubot080301/kubot2_ros.git
 ```
-3.Install KUBOT ROS dependency package
+3. Install KUBOT ROS dependency package
 ```sh
 ./kubot2_ros/tools/kubot_install_ros.sh
 ```
-4.Initialization environment
+4. Initialization environment
 ```sh
 ./kubot2_ros/kubot_init_env.sh
 ```
@@ -33,7 +33,7 @@ source ~/.zshrc
 ```
 This script uses zsh shell by default. If you use other shells, please modify all [zshrc]() and [zsh]() words in the script.
 
-5.Create ROS workspace
+5. Create ROS workspace
 ```sh
 cd ~/kubot2_ros/ros_ws
 catkin_make
