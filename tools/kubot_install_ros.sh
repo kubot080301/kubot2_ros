@@ -26,6 +26,7 @@ if [ "$ros_version" = "melodic" ]; then
     mkdir ros_package
     cd ros_package
     git clone https://github.com/ros-perception/openslam_gmapping.git
+    git clone https://github.com/ros-perception/slam_gmapping.git
     #git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam.git
     #git clone https://github.com/orbbec/ros_astra_launch.git
     #git clone https://github.com/orbbec/ros_astra_camera.git
