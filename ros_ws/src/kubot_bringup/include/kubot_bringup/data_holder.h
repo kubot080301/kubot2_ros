@@ -77,6 +77,7 @@ class Data_holder{
             memset(&odom, 0, sizeof(struct Robot_odom));
             memset(&pid_data, 0, sizeof(struct Robot_pid_data));
             memset(&imu_data, 0, sizeof(imu_data));
+            memset(&battery_power, 0, sizeof(battery_power));
             }
     public:
         struct Robot_firmware  firmware_info;
@@ -86,6 +87,8 @@ class Data_holder{
         struct Robot_pid_data  pid_data;
 
         float imu_data[9];
+
+        float battery_power[1] ;                //電池電壓
 };
 #endif
 

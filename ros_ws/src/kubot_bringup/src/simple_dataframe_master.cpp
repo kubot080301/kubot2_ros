@@ -96,6 +96,9 @@ bool Simple_dataframe::data_parse(){
     case ID_GET_IMU_DATA:
         memcpy(&dh->imu_data, active_rx_msg.data, sizeof(dh->imu_data));
         break;
+     case ID_GET_BATTERY_POWER://獲取電池電壓
+        memcpy(&dh->battery_power, active_rx_msg.data, sizeof(dh->battery_power));
+        break;
     default:
         break;
     }
@@ -153,6 +156,9 @@ bool Simple_dataframe::interact(const MESSAGE_ID id){
         send_message(id);
         break;
     case ID_GET_PID_DATA:
+        send_message(id);
+        break;
+    case ID_GET_BATTERY_POWER:
         send_message(id);
         break;
     case ID_GET_IMU_DATA:

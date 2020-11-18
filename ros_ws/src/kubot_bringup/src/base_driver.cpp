@@ -53,6 +53,8 @@ BaseDriver::BaseDriver() : pn("~"), bdg(pn)
     read_param();
 
     init_imu();
+
+    init_battery_power();
 }
 
 BaseDriver::~BaseDriver()
@@ -128,6 +130,13 @@ void BaseDriver::init_imu()
     raw_imu_msgs.magnetometer = true;
 }
 
+void BaseDriver::init_battery_power()
+{
+    battery_power_pub = nh.advertise<kubot_msgs::BatteryPower>("battery_power", 50);
+    battery_power_msgs.header.frame_id = "battery_link";
+    battery_power_msgs.batterymeter = true;
+}
+
 void BaseDriver::read_param()
 {
     Robot_parameter* param = &Data_holder::get()->parameter;
@@ -173,6 +182,8 @@ void BaseDriver::work_loop()
             update_imu();
 		
         loop.sleep();
+
+        update_battery_power();
 
 	    ros::spinOnce();
     }
@@ -267,4 +278,12 @@ void BaseDriver::update_imu()
     raw_imu_msgs.raw_magnetic_field.y = Data_holder::get()->imu_data[7];
     raw_imu_msgs.raw_magnetic_field.z = Data_holder::get()->imu_data[8];
     raw_imu_pub.publish(raw_imu_msgs);
+}
+
+void BaseDriver::update_battery_power()
+{
+    frame->interact(ID_GET_BATTERY_POWER);
+    battery_power_msgs.header.stamp = ros::Time::now();
+    battery_power_msgs.battery_power = Data_holder::get()->battery_power[0];
+    battery_power_pub.publish(battery_power_msgs);
 }

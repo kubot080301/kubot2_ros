@@ -5,6 +5,7 @@ find_package(catkin REQUIRED COMPONENTS message_generation std_msgs geometry_msg
 
 add_message_files(FILES
                   RawImu.msg
+                  BatteryPower.msg
                  )
 
 generate_messages(DEPENDENCIES std_msgs geometry_msgs)

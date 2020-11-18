@@ -12,6 +12,7 @@
 #include "kubot_bringup/transport.h"
 #include "kubot_bringup/dataframe.h"
 #include <kubot_msgs/RawImu.h>
+#include <kubot_msgs/BatteryPower.h>
 
 class BaseDriver
 {
@@ -34,6 +35,7 @@ private:
   void init_cmd_odom();
   void init_pid_debug();
   void init_imu();
+  void init_battery_power();
   void read_param();
 
   void update_param();
@@ -42,6 +44,7 @@ private:
   void update_speed();
   void update_pid_debug();
   void update_imu();
+  void update_battery_power();
 
 public:
 
@@ -90,6 +93,10 @@ private:
   kubot_msgs::RawImu raw_imu_msgs;
 
   ros::Publisher raw_imu_pub;
+
+  kubot_msgs::BatteryPower battery_power_msgs;
+
+  ros::Publisher battery_power_pub;
 };
 
 // KUBOT_BASE_DRIVER_H_
