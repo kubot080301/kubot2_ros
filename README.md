@@ -29,15 +29,15 @@ After starting the script, you will encounter several options:
  - please specify the current machine
     - Enter 0 for ROS master, Enter 1 and keyin ip for ROS slave 
 ```sh
-source ~/.zshrc
+source ~/.bashrc
 ```
-This script uses zsh shell by default. If you use other shells, please modify all [zshrc]() and [zsh]() words in the script.
+This script uses bash shell by default. If you use other shells, please modify all [bashrc]() and [bash]() words in the script.
 
 5. Create ROS workspace
 ```sh
 cd ~/kubot2_ros/ros_ws
 catkin_make
-source ~/.zshrc
+source ~/.bashrc
 ```
 ##### Then you can enjoy KUBOT ROS !!
 try roslaunch or keyin kubot_ *TAB* *TAB*, You can see many of the features command
