@@ -5,8 +5,8 @@ sudo ln -sf ~/kubot2_ros/tools/kubot_view_env.sh /usr/bin/kubot_view_env
 sudo ln -sf ~/kubot2_ros/tools/kubot_install_ros.sh /usr/bin/kubot_install_ros
 
 if ! [ $KUBOT_ENV_INITIALIZED ]; then
-    echo "export KUBOT_ENV_INITIALIZED=1" >> ~/.zshrc
-    echo "source ~/.kubotrc" >> ~/.zshrc
+    echo "export KUBOT_ENV_INITIALIZED=1" >> ~/.bashrc
+    echo "source ~/.kubotrc" >> ~/.bashrc
 
     #rules
     echo -e "\033[1;32m setup kubot modules"
@@ -41,10 +41,10 @@ fi
 
 content="#source ros
 
-if [ ! -f /opt/ros/${ros_version}/setup.zsh ]; then 
+if [ ! -f /opt/ros/${ros_version}/setup.bash ]; then 
     echo \"please run cd ~/kubot2_ros/tools && ./kubot_install_ros.sh to install ros sdk\"
 else
-    source /opt/ros/${ros_version}/setup.zsh
+    source /opt/ros/${ros_version}/setup.bash
 fi
 "
 echo "${content}" > ~/.kubotrc
@@ -154,16 +154,16 @@ echo "lidar:        " $KUBOT_LIDAR
 echo "local_ip:     " ${LOCAL_IP} 
 echo "onboard_ip:   " ${ROS_MASTER_IP}
 echo ""
-echo -e "please execute \033[1;36;4msource ~/.zshrc\033[1;35m to make the configure effective\033[0m"
+echo -e "please execute \033[1;36;4msource ~/.bashrc\033[1;35m to make the configure effective\033[0m"
 echo -e "\033[1;35m*****************************************************************\033[0m"
 
-#echo "source ~/kubot2_ros/ros_ws/devel/setup.zsh" >> ~/.kubotrc 
+#echo "source ~/kubot2_ros/ros_ws/devel/setup.bash" >> ~/.kubotrc 
 content="#source kubot
 
-if [ ! -f ~/kubot2_ros/ros_ws/devel/setup.zsh ]; then 
+if [ ! -f ~/kubot2_ros/ros_ws/devel/setup.bash ]; then 
     echo \"please run cd ~/kubot2_ros/ros_ws && catkin_make to compile kubot sdk\"
 else
-    source ~/kubot2_ros/ros_ws/devel/setup.zsh
+    source ~/kubot2_ros/ros_ws/devel/setup.bash
 fi
 "
 
