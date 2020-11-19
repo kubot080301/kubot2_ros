@@ -1,8 +1,0 @@
-prefix=/home/rd400/kubot2_ros/ros_ws/install
-
-Name: kubot_description
-Description: Description of kubot_description
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
