@@ -54,7 +54,7 @@ BaseDriver::BaseDriver() : pn("~"), bdg(pn)
 
     init_imu();
 
-    init_battery_power();
+    init_battery_meter();
 }
 
 BaseDriver::~BaseDriver()
@@ -130,11 +130,10 @@ void BaseDriver::init_imu()
     raw_imu_msgs.magnetometer = true;
 }
 
-void BaseDriver::init_battery_power()
+void BaseDriver::init_battery_meter()
 {
-    battery_power_pub = nh.advertise<kubot_msgs::BatteryPower>("battery_power", 50);
-    battery_power_msgs.header.frame_id = "battery_link";
-    battery_power_msgs.batterymeter = true;
+    battery_voltage_pub = nh.advertise<kubot_msgs::BatteryVoltage>("battery_voltage", 1000);
+    battery_voltage_msgs.batterymeter = true;
 }
 
 void BaseDriver::read_param()
@@ -183,7 +182,7 @@ void BaseDriver::work_loop()
 		
         loop.sleep();
 
-        update_battery_power();
+        update_battery_meter();
 
 	    ros::spinOnce();
     }
@@ -280,10 +279,11 @@ void BaseDriver::update_imu()
     raw_imu_pub.publish(raw_imu_msgs);
 }
 
-void BaseDriver::update_battery_power()
+void BaseDriver::update_battery_meter()
 {
-    frame->interact(ID_GET_BATTERY_POWER);
-    battery_power_msgs.header.stamp = ros::Time::now();
-    battery_power_msgs.battery_power = Data_holder::get()->battery_power[0];
-    battery_power_pub.publish(battery_power_msgs);
+    frame->interact(ID_GET_VOLTAGE_DATA);
+    battery_voltage_msgs.header.stamp = ros::Time::now();
+    battery_voltage_msgs.battery_voltage = Data_holder::get()->battery_voltage[0];
+ //   ROS_INFO_STREAM("battery_voltage:[" <<battery_voltage_msgs.battery_voltage<< " ] V");
+    battery_voltage_pub.publish(battery_voltage_msgs);
 }

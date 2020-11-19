@@ -1,0 +1,8 @@
+prefix=/home/rd400/kubot2_ros/ros_ws/devel
+
+Name: kubot
+Description: Description of kubot
+Version: 0.0.0
+Cflags: -I/home/rd400/kubot2_ros/ros_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: 

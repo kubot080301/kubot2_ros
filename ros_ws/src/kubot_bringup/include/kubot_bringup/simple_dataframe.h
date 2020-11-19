@@ -19,7 +19,7 @@ struct Message{
     struct Head head;
     unsigned char data[MESSAGE_BUFFER_SIZE];
     unsigned char check;
-    unsigned char recv_count;   // 已经接收的字結束
+    unsigned char recv_count;   // 已經接收的字結束
 
     Message(){}
     Message(unsigned char msg_id, unsigned char* data=0,unsigned char len=0){
@@ -50,5 +50,4 @@ enum RECEIVE_STATE{
 };
 
 #endif
-
 // KUBOT_SIMPLE_DATAFRAME_H_

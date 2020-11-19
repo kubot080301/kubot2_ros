@@ -72,6 +72,5 @@ private:
 };
 
 
-#endif /* TRANSPORT_SERIAL_H_ */
-
+#endif 
 // KUBOT_SERIAL_TRANSPORT_H_

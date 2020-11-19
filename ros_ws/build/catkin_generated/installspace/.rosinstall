@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/rd400/kubot2_ros/ros_ws/install/setup.sh

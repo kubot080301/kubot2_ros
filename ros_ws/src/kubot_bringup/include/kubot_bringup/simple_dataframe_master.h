@@ -37,5 +37,4 @@ class Simple_dataframe : public Dataframe{
         bool is_run;*/
 };
 #endif
-
 // KUBOT_SIMPLE_DATAFRAME_MASTER_H_

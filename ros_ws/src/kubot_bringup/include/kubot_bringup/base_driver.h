@@ -3,7 +3,6 @@
 #include <boost/shared_ptr.hpp>
 #include "base_driver_config.h"
 
-
 #include <geometry_msgs/Twist.h>
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
@@ -12,7 +11,7 @@
 #include "kubot_bringup/transport.h"
 #include "kubot_bringup/dataframe.h"
 #include <kubot_msgs/RawImu.h>
-#include <kubot_msgs/BatteryPower.h>
+#include <kubot_msgs/BatteryVoltage.h>
 
 class BaseDriver
 {
@@ -35,7 +34,7 @@ private:
   void init_cmd_odom();
   void init_pid_debug();
   void init_imu();
-  void init_battery_power();
+  void init_battery_meter();
   void read_param();
 
   void update_param();
@@ -44,7 +43,7 @@ private:
   void update_speed();
   void update_pid_debug();
   void update_imu();
-  void update_battery_power();
+  void update_battery_meter();
 
 public:
 
@@ -91,12 +90,9 @@ private:
   //ros::Time last_update_odom_time; 
 
   kubot_msgs::RawImu raw_imu_msgs;
-
   ros::Publisher raw_imu_pub;
 
-  kubot_msgs::BatteryPower battery_power_msgs;
-
-  ros::Publisher battery_power_pub;
+  kubot_msgs::BatteryVoltage battery_voltage_msgs;
+  ros::Publisher battery_voltage_pub;
 };
-
 // KUBOT_BASE_DRIVER_H_

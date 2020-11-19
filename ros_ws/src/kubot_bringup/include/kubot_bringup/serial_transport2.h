@@ -27,6 +27,5 @@ private:
 };
 
 
-#endif /* TRANSPORT_SERIAL_H_ */
-
+#endif 
 // KUBOT_SERIAL_TRANSPORT2_H_

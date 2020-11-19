@@ -55,5 +55,4 @@ private:
 };
 
 #endif
-
 // KUBOT_BASE_DRIVER_CONFIG_H_
