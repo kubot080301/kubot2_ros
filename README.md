@@ -1,4 +1,4 @@
-# KUBOT ROS1 WORKSPACE V2.1
+# KUBOT ROS1 WORKSPACE V2.2
 
 ![](https://img.onl/ZLiQM0)
 
