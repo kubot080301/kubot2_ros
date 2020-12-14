@@ -78,7 +78,7 @@ else
     KUBOT_MODEL=$KUBOT_MODEL_INPUT 
 fi
 
-echo -e "\033[1;34mplease specify kubot driver board type\033[1;32m(0:arduino(mega2560),other for user defined):\033[1;33m"
+echo -e "\033[1;34mplease specify kubot driver board type\033[1;32m(0:arduino(mega2560),1:STM32F103,2:STM32F407,other for user defined):\033[1;33m"
 read -p "" KUBOT_DIRVER_BOARD_INPUT
 
 if [ "$KUBOT_DIRVER_BOARD_INPUT" = "0" ]; then
