@@ -65,20 +65,18 @@ if [ ! ${LOCAL_IP} ]; then
     exit
 fi
 
-echo -e "\033[1;34mplease specify kubot model\033[1;32m(0:kubot,1:kubot2,2:mac,other for user defined):\033[1;33m"
+echo -e "\033[1;34mplease specify kubot model\033[1;32m(0:kubot,1:kubot2,other for user defined):\033[1;33m"
 read -p "" KUBOT_MODEL_INPUT
 
 if [ "$KUBOT_MODEL_INPUT" = "0" ]; then
     KUBOT_MODEL='apollo'
 elif [ "$KUBOT_MODEL_INPUT" = "1" ]; then
     KUBOT_MODEL='apolloX'
-elif [ "$KUBOT_MODEL_INPUT" = "2" ]; then
-    KUBOT_MODEL='heades'
 else
     KUBOT_MODEL=$KUBOT_MODEL_INPUT 
 fi
 
-echo -e "\033[1;34mplease specify kubot driver board type\033[1;32m(0:arduino(mega2560),1:STM32F103,2:STM32F407,other for user defined):\033[1;33m"
+echo -e "\033[1;34mplease specify kubot driver board type\033[1;32m(0:arduino(mega2560),other for user defined):\033[1;33m"
 read -p "" KUBOT_DIRVER_BOARD_INPUT
 
 if [ "$KUBOT_DIRVER_BOARD_INPUT" = "0" ]; then
@@ -88,7 +86,7 @@ elif [ "$KUBOT_DIRVER_BOARD_INPUT" = "1" ]; then
     KUBOT_DRIVER_BAUD=115200
     KUBOT_BOARD='stm32f1'
 elif [ "$KUBOT_DIRVER_BOARD_INPUT" = "2" ]; then
-    KUBOT_DRIVER_BAUD=921600
+    KUBOT_DRIVER_BAUD=115200
     KUBOT_BOARD='stm32f4'
 else
     KUBOT_DRIVER_BAUD=115200
