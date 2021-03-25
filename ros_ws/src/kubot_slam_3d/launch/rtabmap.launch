@@ -1,0 +1,6 @@
+<launch>
+  <arg name="3dsensor" default="$(env KUBOT_3DSENSOR)" doc="model type [xtion, astra, d435i]"/>
+
+  <include file="$(find kubot_slam_3d)/launch/$(arg 3dsensor).launch">
+  </include>
+</launch>

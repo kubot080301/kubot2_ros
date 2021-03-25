@@ -41,7 +41,11 @@ BaseDriver::BaseDriver() : pn("~"), bdg(pn)
     
     frame->init();
 
-    frame->interact(ID_GET_VERSION);
+       for (int i=0;i<3;i++) {
+        if (frame->interact(ID_GET_VERSION))
+            break;
+        ros::Duration(1).sleep(); //wait for device
+    }
 
     ROS_INFO("robot version:%s build time:%s", Data_holder::get()->firmware_info.version,
                                         Data_holder::get()->firmware_info.time);

@@ -1,2 +1,11 @@
-{base_frame: base_link, buadrate: 115200, cmd_vel_topic: cmd_vel, odom_frame: odom,
-  odom_topic: odom, out_pid_debug_enable: false, port: /dev/kubot, publish_tf: false}
+# Serial config
+port: /dev/kubot
+baudrate: 115200
+
+# ROS config
+base_frame: base_link
+cmd_vel_topic: cmd_vel
+odom_frame: odom
+odom_topic: odom
+publish_tf: false
+out_pid_debug_enable: false

@@ -1,0 +1,20 @@
+<launch>
+  <arg name="localization"    default="false" doc="Localization mode for navigation"/>
+
+  <arg     if="$(arg localization)" name="rtabmap_args"  default=""/>
+  <arg unless="$(arg localization)" name="rtabmap_args"  default="--delete_db_on_start"/>
+  <arg name="rtabmapviz"              default="false" /> 
+  <arg name="rviz"                    default="false" />
+
+  <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+    <arg     if="$(arg localization)" name="rtabmap_args"  default=""/>
+    <arg unless="$(arg localization)" name="rtabmap_args"  default="--delete_db_on_start"/>
+    <arg name="left_image_topic" value="/camera/infra1/image_rect_raw" />
+    <arg name="right_image_topic" value="/camera/infra2/image_rect_raw" />
+    <arg name="left_camera_info_topic" value="/camera/infra1/camera_info" />
+    <arg name="right_camera_info_topic" value="/camera/infra2/camera_info" />
+    <arg name="stereo" value="true" />
+    <arg name="wait_imu_to_init" value="true" />
+    <arg name="imu_topic" value="/rtabmap/imu" />
+  </include> 
+</launch>

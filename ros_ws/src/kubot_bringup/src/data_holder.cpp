@@ -10,5 +10,3 @@ void Data_holder::save_parameter(){
     Board::get()->set_config((unsigned char*)&parameter, sizeof(parameter));
 }
 #endif
-    
-

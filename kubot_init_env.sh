@@ -65,28 +65,38 @@ if [ ! ${LOCAL_IP} ]; then
     exit
 fi
 
-echo -e "\033[1;34mplease specify kubot model\033[1;32m(0:kubot,1:kubot2,other for user defined):\033[1;33m"
+echo -e "\033[1;34m Please specify kubot robot model:\033[1;32m
+    1:kubot
+    2:kubot2
+\033[1;34m (or other for user defined) \033[1;33m"
+
 read -p "" KUBOT_MODEL_INPUT
 
-if [ "$KUBOT_MODEL_INPUT" = "0" ]; then
+if [ "$KUBOT_MODEL_INPUT" = "1" ]; then
     KUBOT_MODEL='apollo'
-elif [ "$KUBOT_MODEL_INPUT" = "1" ]; then
+elif [ "$KUBOT_MODEL_INPUT" = "2" ]; then
     KUBOT_MODEL='apolloX'
 else
     KUBOT_MODEL=$KUBOT_MODEL_INPUT 
 fi
 
-echo -e "\033[1;34mplease specify kubot driver board type\033[1;32m(0:arduino(mega2560),other for user defined):\033[1;33m"
+echo -e "\033[1;34m Please specify kubot driver board type:\033[1;32m
+	1:arduino(mega2560) 
+	2:stm32(f103C8) 
+	3:stm32(f407ZG)
+	4:stm32(f429) 
+\033[1;34m (or other for user defined)\033[1;33m"
+
 read -p "" KUBOT_DIRVER_BOARD_INPUT
 
-if [ "$KUBOT_DIRVER_BOARD_INPUT" = "0" ]; then
+if [ "$KUBOT_DIRVER_BOARD_INPUT" = "1" ]; then
     KUBOT_DRIVER_BAUD=115200
     KUBOT_BOARD='arduino'
-elif [ "$KUBOT_DIRVER_BOARD_INPUT" = "1" ]; then
-    KUBOT_DRIVER_BAUD=115200
-    KUBOT_BOARD='stm32f1'
 elif [ "$KUBOT_DIRVER_BOARD_INPUT" = "2" ]; then
     KUBOT_DRIVER_BAUD=115200
+    KUBOT_BOARD='stm32f1'
+elif [ "$KUBOT_DIRVER_BOARD_INPUT" = "3" ]; then
+    KUBOT_DRIVER_BAUD=921600
     KUBOT_BOARD='stm32f4'
 else
     KUBOT_DRIVER_BAUD=115200
@@ -95,27 +105,54 @@ fi
 
 python ~/kubot2_ros/ros_ws/src/kubot_bringup/scripts/set_baud.py $KUBOT_DRIVER_BAUD
 
-echo -e "\033[1;34mplease specify your kubot lidar\033[1;32m(0:rplidar(a1,a2),1:rplidar(a3),2:eai(x4),3:eai(g4),4:xtion,5:astra,6:kinectV1,7:kinectV2,8:rplidar(s1),other for user defined):\033[1;33m"
+echo -e "\033[1;34m Please specify  kubot lidar:\033[1;32m
+	0:not config
+	1:rplidar(a1,a2)
+	2:rplidar(a3)
+	3:eai(x4)
+	4:eai(g4)
+	5:xtion
+	6:astra
+	7:kinectV1
+	8:kinectV2
+	9:rplidar(s1) 
+	10:eai(x4)
+	11:realsense(d435i)
+\033[1;34m (or other for user defined)\033[1;33m"
+
 read -p "" KUBOT_LIDAR_INPUT
 
+KUBOT_DEEP_CAM=0
+
 if [ "$KUBOT_LIDAR_INPUT" = "0" ]; then
-    KUBOT_LIDAR='rplidar'
+    KUBOT_LIDAR='non-lidar'
 elif [ "$KUBOT_LIDAR_INPUT" = "1" ]; then
-    KUBOT_LIDAR='rplidar-a3'
+    KUBOT_LIDAR='rplidar'
 elif [ "$KUBOT_LIDAR_INPUT" = "2" ]; then
-    KUBOT_LIDAR='eai-x4'
+    KUBOT_LIDAR='rplidar-a3'
 elif [ "$KUBOT_LIDAR_INPUT" = "3" ]; then
-    KUBOT_LIDAR='eai-g4'
+    KUBOT_LIDAR='eai-x4'
 elif [ "$KUBOT_LIDAR_INPUT" = "4" ]; then
-    KUBOT_LIDAR='xtion'
+    KUBOT_LIDAR='eai-g4'
 elif [ "$KUBOT_LIDAR_INPUT" = "5" ]; then
-    KUBOT_LIDAR='astra'
+    KUBOT_LIDAR='xtion'
+    KUBOT_DEEP_CAM=1
 elif [ "$KUBOT_LIDAR_INPUT" = "6" ]; then
-    KUBOT_LIDAR='kinectV1'
+    KUBOT_LIDAR='astra'
+    KUBOT_DEEP_CAM=1
 elif [ "$KUBOT_LIDAR_INPUT" = "7" ]; then
-    KUBOT_LIDAR='kinectV2'
+    KUBOT_LIDAR='kinectV1'
+    KUBOT_DEEP_CAM=1
 elif [ "$KUBOT_LIDAR_INPUT" = "8" ]; then
+    KUBOT_LIDAR='kinectV2'
+    KUBOT_DEEP_CAM=1
+elif [ "$KUBOT_LIDAR_INPUT" = "9" ]; then
     KUBOT_LIDAR='rplidar-s1'
+elif [ "$KUBOT_LIDAR_INPUT" = "10" ]; then
+    KUBOT_LIDAR='eai-x4'
+elif [ "$KUBOT_LIDAR_INPUT" = "11" ]; then
+    KUBOT_LIDAR='d435i'
+    KUBOT_DEEP_CAM=1
 else
     KUBOT_LIDAR=$KUBOT_LIDAR_INPUT
 fi
@@ -128,14 +165,53 @@ else
     fi
 fi
 
+
+if [ $KUBOT_DEEP_CAM = 1 ]; then
+    echo "deep_cam: $KUBOT_LIDAR"
+    KUBOT_3DSENSOR='non-3dsensor'
+else
+echo -e "\033[1;34m Please specify  kubot 3dsensor:\033[1;32m
+	0:not config
+	1:xtion
+	2:astra
+	3:kinectV1
+	4:kinectV2
+	5:realsense(d435i)
+\033[1;34m (or other for user defined) \033[1;33m"
+
+    read -p "" KUBOT_INPUT
+
+    if [ "$KUBOT_INPUT" = "0" ]; then
+        KUBOT_3DSENSOR='non-3dsensor'
+    elif [ "$KUBOT_INPUT" = "1" ]; then
+        KUBOT_3DSENSOR='xtion'
+    elif [ "$KUBOT_INPUT" = "2" ]; then
+        KUBOT_3DSENSOR='astra'
+    elif [ "$KUBOT_INPUT" = "3" ]; then
+        KUBOT_3DSENSOR='kinectV1'
+    elif [ "$KUBOT_INPUT" = "4" ]; then
+        KUBOT_3DSENSOR='kinectV2'
+    elif [ "$KUBOT_INPUT" = "5" ]; then
+        KUBOT_3DSENSOR='d435i'
+    else
+        KUBOT_3DSENSOR=$KUBOT_INPUT
+    fi
+fi
+
 echo "export ROS_IP=\`echo \$LOCAL_IP\`" >> ~/.kubotrc
 echo "export ROS_HOSTNAME=\`echo \$LOCAL_IP\`" >> ~/.kubotrc
 echo "export KUBOT_MODEL=${KUBOT_MODEL}" >> ~/.kubotrc
 echo "export KUBOT_LIDAR=${KUBOT_LIDAR}" >> ~/.kubotrc
 echo "export KUBOT_BOARD=${KUBOT_BOARD}" >> ~/.kubotrc
+echo "export KUBOT_3DSENSOR=${KUBOT_3DSENSOR}" >> ~/.kubotrc
 
-echo -e "\033[1;34mplease specify the current machine(ip:$LOCAL_IP) type\033[1;32m(0:kubot board,other:control PC):\033[1;33m" 
+echo -e "\033[1;34m Please specify the current machine(ip:$LOCAL_IP) type\033[1;32m
+    0:kubot robot
+    1:control PC
+\033[1;34m (or other for user defined) \033[1;33m"
+
 read -p "" KUBOT_MACHINE_VALUE
+
 if [ "$KUBOT_MACHINE_VALUE" = "0" ]; then
     ROS_MASTER_IP_STR="\`echo \$LOCAL_IP\`"
     ROS_MASTER_IP=`echo $LOCAL_IP`
@@ -149,10 +225,11 @@ fi
 echo "export ROS_MASTER_URI=`echo http://${ROS_MASTER_IP_STR}:11311`" >> ~/.kubotrc
 
 echo -e "\033[1;35m*****************************************************************"
-echo "model:        " $KUBOT_MODEL 
-echo "lidar:        " $KUBOT_LIDAR  
-echo "local_ip:     " ${LOCAL_IP} 
-echo "onboard_ip:   " ${ROS_MASTER_IP}
+echo "model:" $KUBOT_MODEL 
+echo "lidar:" $KUBOT_LIDAR  
+echo "3dsenser:" $KUBOT_3DSENSOR
+echo "local_ip:" ${LOCAL_IP} 
+echo "robot_ip:" ${ROS_MASTER_IP}
 echo ""
 echo -e "please execute \033[1;36;4msource ~/.bashrc\033[1;35m to make the configure effective\033[0m"
 echo -e "\033[1;35m*****************************************************************\033[0m"

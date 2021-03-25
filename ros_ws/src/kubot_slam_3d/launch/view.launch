@@ -1,0 +1,9 @@
+<launch>
+  <arg name="localization"    default="false" doc="Localization mode for navigation"/>
+  <arg     if="$(arg localization)" name="rviz_config"   default="$(find kubot_navigation)/rviz/view_navigation_3d.rviz"/>
+  <arg unless="$(arg localization)" name="rviz_config"   default="$(find kubot_navigation)/view/view_navigation_all.rviz"/>
+
+    <!-- RVIZ node -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config)" />
+
+</launch>

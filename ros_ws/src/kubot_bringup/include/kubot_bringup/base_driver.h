@@ -87,10 +87,12 @@ private:
   std_msgs::Int32 pid_debug_msg_output[MAX_MOTOR_COUNT];
 
   bool need_update_speed;
+  double last_cmd_vel_time;
   //ros::Time last_update_odom_time; 
 
   kubot_msgs::RawImu raw_imu_msgs;
   ros::Publisher raw_imu_pub;
+  ros::Publisher raw_mag_pub;
 
   kubot_msgs::BatteryVoltage battery_voltage_msgs;
   ros::Publisher battery_voltage_pub;

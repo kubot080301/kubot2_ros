@@ -24,11 +24,26 @@
 """
 
 import rospy
+
 from geometry_msgs.msg import PoseWithCovarianceStamped
+from geometry_msgs.msg import TwistWithCovariance
+
 from nav_msgs.msg import Odometry
+
+ODOM_TWIST_COVARIANCE = [1e-3, 0, 0, 0, 0, 0,
+						0, 1e-3, 0, 0, 0, 0,
+						0, 0, 1e6, 0, 0, 0,
+						0, 0, 0, 1e6, 0, 0,
+						0, 0, 0, 0, 1e6, 0,
+						0, 0, 0, 0, 0, 1e3]
 
 class OdomEKF():
     def __init__(self):
+        self.use_wheel_odom = rospy.get_param('~use_wheel_odom', True)
+        self.wheel_odom_topic = rospy.get_param('~wheel_odom_topic', 'wheel_odom')
+        self.twist = TwistWithCovariance()
+        self.twist.covariance = ODOM_TWIST_COVARIANCE
+
         # Give the node a name
         rospy.init_node('odom_ekf', anonymous=False)
 
@@ -37,6 +52,12 @@ class OdomEKF():
         
         # Wait for the /odom_combined topic to become available
         rospy.wait_for_message('input', PoseWithCovarianceStamped)
+
+        if self.use_wheel_odom:
+            rospy.wait_for_message(self.wheel_odom_topic, Odometry)
+            # Subscribe to the /wheel_odom topic
+            rospy.Subscriber(self.wheel_odom_topic, Odometry, self._wheel_odom)
+
         
         # Subscribe to the /odom_combined topic
         rospy.Subscriber('input', PoseWithCovarianceStamped, self.pub_ekf_odom)
@@ -49,8 +70,11 @@ class OdomEKF():
         odom.header.frame_id = '/odom'
         odom.child_frame_id = 'base_link'
         odom.pose = msg.pose
-        
+        odom.twist = self.twist
         self.ekf_pub.publish(odom)
+
+    def _wheel_odom(self, msg):
+        self.twist = msg.twist
         
 if __name__ == '__main__':
     try:

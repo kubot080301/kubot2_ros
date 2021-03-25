@@ -1,0 +1,8 @@
+prefix=/home/kubot/kubot2_ros/ros_ws/install
+
+Name: kubot_navigation
+Description: Description of kubot_navigation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
