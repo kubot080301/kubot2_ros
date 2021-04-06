@@ -1,13 +1,22 @@
+#ifndef  KUBOT_BASE_DRIVER_H_
+#define KUBOT_BASE_DRIVER_H_
+
 #include <ros/ros.h>
 
 #include <boost/shared_ptr.hpp>
 #include "base_driver_config.h"
 
+
 #include <geometry_msgs/Twist.h>
+
+#include <sensor_msgs/Imu.h>
+#include <sensor_msgs/MagneticField.h>
+
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
 #include <std_msgs/Int16.h>
 #include <std_msgs/Int32.h>
+
 #include "kubot_bringup/transport.h"
 #include "kubot_bringup/dataframe.h"
 #include <kubot_msgs/RawImu.h>
@@ -28,6 +37,7 @@ public:
   }
   ~BaseDriver();
   void work_loop();
+
 private:
   void cmd_vel_callback(const geometry_msgs::Twist& vel_cmd);
   //void correct_pos_callback(const std_msgs::Float32MultiArray& pos);
@@ -35,6 +45,8 @@ private:
   void init_pid_debug();
   void init_imu();
   void init_battery_meter();
+
+  void init_param();
   void read_param();
 
   void update_param();
@@ -47,7 +59,7 @@ private:
 
 public:
 
-  BaseDriverConfig& getBaseDriverConfig(){
+  BaseDriverConfig& getBaseDriverConfig() {
     return bdg;
   }
 
@@ -55,13 +67,12 @@ public:
     return &nh;
   }
 
-  ros::NodeHandle* getPrivateNodeHandle(){
+  ros::NodeHandle* getPrivateNodeHandle() {
     return &pn;
   }
 private:
   static BaseDriver* instance;
 
-  //ros::NodeHandle n;
   BaseDriverConfig bdg;
   boost::shared_ptr<Transport> trans;
   boost::shared_ptr<Dataframe> frame;
@@ -69,9 +80,7 @@ private:
   ros::Subscriber cmd_vel_sub;
 
   ros::Publisher odom_pub;
-  //ros::Publisher left_encoder_pub;
-  //ros::Publisher right_encoder_pub;
-  
+
   nav_msgs::Odometry odom;
   geometry_msgs::TransformStamped odom_trans;
   tf::TransformBroadcaster odom_broadcaster;
@@ -87,8 +96,8 @@ private:
   std_msgs::Int32 pid_debug_msg_output[MAX_MOTOR_COUNT];
 
   bool need_update_speed;
+
   double last_cmd_vel_time;
-  //ros::Time last_update_odom_time; 
 
   kubot_msgs::RawImu raw_imu_msgs;
   ros::Publisher raw_imu_pub;
@@ -97,4 +106,5 @@ private:
   kubot_msgs::BatteryVoltage battery_voltage_msgs;
   ros::Publisher battery_voltage_pub;
 };
+
 // KUBOT_BASE_DRIVER_H_

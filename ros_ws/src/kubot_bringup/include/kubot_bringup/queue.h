@@ -1,7 +1,8 @@
-#ifndef KUBOT_QUEUE_H_
+#ifndef  KUBOT_QUEUE_H_
 #define KUBOT_QUEUE_H_
 
-class Queue{
+class Queue
+{
   public:
     virtual bool put(unsigned char ch)=0;
     virtual bool get(unsigned char& ch)=0;
@@ -11,4 +12,5 @@ class Queue{
 };
 
 #endif
+
 // KUBOT_QUEUE_H_

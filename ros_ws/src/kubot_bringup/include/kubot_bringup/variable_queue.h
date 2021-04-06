@@ -1,10 +1,11 @@
-#ifndef KUBOT_VARIABLE_QUEUE_H_
+#ifndef  KUBOT_VARIABLE_QUEUE_H_
 #define KUBOT_VARIABLE_QUEUE_H_
 
 #include<string.h>
 #include <stdio.h>
 template <unsigned short MAX_SIZE=256>
-class VQueue : public Queue{
+class VQueue : public Queue
+{
   public:
     VQueue();
     bool put(unsigned char ch);
@@ -20,23 +21,29 @@ class VQueue : public Queue{
 };
 
 template<unsigned short MAX_SIZE>
-VQueue<MAX_SIZE>::VQueue(){
+VQueue<MAX_SIZE>::VQueue()
+{
     _max_size = MAX_SIZE;
-    memset(_buffer, 0, MAX_SIZE);
+    memset(_buffer, 0, MAX_SIZE); 
+    _head = 0;
+    _tail = 0;
 }
 
 template<unsigned short MAX_SIZE>
-unsigned short VQueue<MAX_SIZE>::size(){
+unsigned short VQueue<MAX_SIZE>::size()
+{
     return (_tail+_max_size-_head)%_max_size;
 }
 
 template<unsigned short MAX_SIZE>
-unsigned short VQueue<MAX_SIZE>::max_size(){
+unsigned short VQueue<MAX_SIZE>::max_size()
+{
     return _max_size;
 }
 
 template<unsigned short MAX_SIZE>
-bool VQueue<MAX_SIZE>::put(unsigned char ch){
+bool VQueue<MAX_SIZE>::put(unsigned char ch)
+{
     if (_tail+1 == _head)
         return false;
 
@@ -49,7 +56,8 @@ bool VQueue<MAX_SIZE>::put(unsigned char ch){
 }
 
 template<unsigned short MAX_SIZE>
-bool VQueue<MAX_SIZE>::get(unsigned char& ch){
+bool VQueue<MAX_SIZE>::get(unsigned char& ch)
+{
     if (_head == _tail)
         return false;
 
@@ -61,6 +69,6 @@ bool VQueue<MAX_SIZE>::get(unsigned char& ch){
     return true;
 }
 
-
 #endif
+
 // KUBOT_VARIABLE_QUEUE_H_

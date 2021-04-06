@@ -1,18 +1,17 @@
-#ifndef DATA_HOLDER_H_
-#define DATA_HOLDER_H_
+#ifndef  KUBOT_DATA_HOLDER_H_
+#define KUBOT_DATA_HOLDER_H_
 
 #include <string.h>
 
 #pragma pack(1)
-
 
 typedef int int32;
 typedef short int16;
 typedef unsigned short uint16;
 
 struct Robot_firmware{
-    char version[16]; //控制板版本
-    char time[16];    //建構時間
+    char version[16];   //控制板版本
+    char time[16];      //建構時間
 };
 
 struct Robot_parameter{
@@ -56,11 +55,14 @@ struct Robot_pid_data{
     int32 output[4];      // 輪子的輸出值
 };
 
+
 #pragma pack(0)
 
-class Data_holder{
+class Data_holder
+{
     public:
-        static Data_holder* get(){
+        static Data_holder* get()
+        {
             static Data_holder dh;
             return &dh;
         }
@@ -69,8 +71,10 @@ class Data_holder{
 
         void save_parameter();
     
+        static void dump_params(struct Robot_parameter* params);
     private:
-        Data_holder(){
+        Data_holder()
+        {
             memset(&firmware_info, 0, sizeof(struct Robot_firmware));
             memset(&parameter, 0, sizeof(struct Robot_parameter));
             memset(&velocity, 0, sizeof(struct Robot_velocity));
@@ -90,4 +94,5 @@ class Data_holder{
         float battery_voltage[1] ;                //電池電壓
 };
 #endif
+
 // KUBOT_DATA_HOLDER_H_

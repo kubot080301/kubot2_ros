@@ -1,13 +1,11 @@
 #include "serial_transport.h"
 
-
-
-Serial_transport::Serial_transport(std::string port, int32_t buadrate) :
+Serial_transport::Serial_transport(std::string port, int32_t baudrate) :
     write_buffer_(),
     read_buffer_()
 {
     params_.serialPort = port;
-    params_.baudRate = buadrate;
+    params_.baudRate = baudrate;
 
 	ios_ = boost::make_shared<boost::asio::io_service>();
 }
@@ -55,8 +53,6 @@ void Serial_transport::start_a_write()
                                  boost::bind(&Serial_transport::writeHandler, this, boost::asio::placeholders::error));
         write_buffer_.pop();
     }
-
-
 }
 
 void Serial_transport::writeHandler(const boost::system::error_code &ec)
@@ -128,10 +124,12 @@ bool Serial_transport::init()
     return true;
 }
 
-void Serial_transport::set_timeout(int t){
+void Serial_transport::set_timeout(int t)
+{
     timer_->expires_from_now(boost::posix_time::millisec(t));
 }
 
-bool Serial_transport::is_timeout(){
+bool Serial_transport::is_timeout()
+{
     return timer_->expires_from_now().is_negative();
 }

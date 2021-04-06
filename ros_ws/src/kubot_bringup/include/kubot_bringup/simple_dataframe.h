@@ -1,4 +1,4 @@
-#ifndef KUBOT_SIMPLE_DATAFRAME_H_
+#ifndef  KUBOT_SIMPLE_DATAFRAME_H_
 #define KUBOT_SIMPLE_DATAFRAME_H_
 
 #include "dataframe.h"
@@ -8,21 +8,24 @@ static const unsigned short MESSAGE_BUFFER_SIZE = 255;
 
 #define FIX_HEAD 0x5A
 
-struct Head{
-    unsigned char flag;         // 旗標,固定值:0X5A
+struct Head
+{
+    unsigned char flag;              // 旗標,固定值:0X5A
     unsigned char msg_id;       // 消息ID,表示消息具體作用,决定消息格式
-    unsigned char length;       // 消息長度
+    unsigned char length;         // 消息長度
 };
 
 
-struct Message{
+struct Message
+{
     struct Head head;
     unsigned char data[MESSAGE_BUFFER_SIZE];
     unsigned char check;
-    unsigned char recv_count;   // 已經接收的字結束
+    unsigned char recv_count;   // 已經接收的字節數
 
     Message(){}
-    Message(unsigned char msg_id, unsigned char* data=0,unsigned char len=0){
+    Message(unsigned char msg_id, unsigned char* data=0,unsigned char len=0)
+    {
         head.flag = FIX_HEAD;
         head.msg_id = msg_id;
         head.length = recv_count = len;
@@ -41,7 +44,8 @@ struct Message{
     }
 };
 
-enum RECEIVE_STATE{
+enum RECEIVE_STATE
+{
     STATE_RECV_FIX=0,
     STATE_RECV_ID,
     STATE_RECV_LEN,
@@ -50,4 +54,5 @@ enum RECEIVE_STATE{
 };
 
 #endif
+
 // KUBOT_SIMPLE_DATAFRAME_H_

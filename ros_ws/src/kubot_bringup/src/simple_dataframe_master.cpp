@@ -5,23 +5,27 @@
 
 #include "transport.h"
 
-Simple_dataframe::Simple_dataframe(Transport* _trans): trans(_trans){
+Simple_dataframe::Simple_dataframe(Transport* _trans): trans(_trans)
+{
     recv_state = STATE_RECV_FIX;
 }
 
-Simple_dataframe::~Simple_dataframe(){
+Simple_dataframe::~Simple_dataframe()
+{
 }
 
-bool Simple_dataframe::init(){
+bool Simple_dataframe::init()
+{
     trans->set_timeout(500);
     return true;
 }
 
-bool Simple_dataframe::data_recv(unsigned char c){
+bool Simple_dataframe::data_recv(unsigned char c)
+{
     //printf("%02x ", c);
-    switch (recv_state){
+    switch (recv_state) {
     case STATE_RECV_FIX:
-        if (c == FIX_HEAD){
+        if (c == FIX_HEAD) {
             memset(&active_rx_msg,0, sizeof(active_rx_msg));
             active_rx_msg.head.flag = c;
             active_rx_msg.check += c;
@@ -32,7 +36,7 @@ bool Simple_dataframe::data_recv(unsigned char c){
             recv_state = STATE_RECV_FIX;
         break;
     case STATE_RECV_ID:
-        if (c < ID_MESSGAE_MAX){
+        if (c < ID_MESSGAE_MAX) {
             active_rx_msg.head.msg_id = c;
             active_rx_msg.check += c;
             recv_state = STATE_RECV_LEN;
@@ -68,13 +72,14 @@ bool Simple_dataframe::data_recv(unsigned char c){
     return false;
 }
 
-bool Simple_dataframe::data_parse(){
+bool Simple_dataframe::data_parse()
+{
     MESSAGE_ID id = (MESSAGE_ID)active_rx_msg.head.msg_id;
 
     //printf("data_parse:id=%d\r\n", id);
 
     Data_holder* dh = Data_holder::get();
-    switch (id){
+    switch (id) {
     case ID_GET_VERSION:
         memcpy(&dh->firmware_info, active_rx_msg.data, sizeof(dh->firmware_info));
         break;
@@ -106,7 +111,8 @@ bool Simple_dataframe::data_parse(){
     return true;
 }
 
-bool Simple_dataframe::send_message(const MESSAGE_ID id){
+bool Simple_dataframe::send_message(const MESSAGE_ID id)
+{
     Message msg(id);
 
     send_message(&msg);
@@ -114,7 +120,8 @@ bool Simple_dataframe::send_message(const MESSAGE_ID id){
     return true;
 }
 
-bool Simple_dataframe::send_message(const MESSAGE_ID id, unsigned char* data, unsigned char len){
+bool Simple_dataframe::send_message(const MESSAGE_ID id, unsigned char* data, unsigned char len)
+{
     Message msg(id, data, len);
 
     send_message(&msg);
@@ -122,7 +129,8 @@ bool Simple_dataframe::send_message(const MESSAGE_ID id, unsigned char* data, un
     return true;
 }
 
-bool Simple_dataframe::send_message(Message* msg){
+bool Simple_dataframe::send_message(Message* msg)
+{
     if (trans == 0)
         return true;
     
@@ -132,11 +140,12 @@ bool Simple_dataframe::send_message(Message* msg){
     return true;
 }
 
-bool Simple_dataframe::interact(const MESSAGE_ID id){
+bool Simple_dataframe::interact(const MESSAGE_ID id)
+{
     //printf("make command:id=%d\r\n", id);
 
     Data_holder* dh = Data_holder::get();
-    switch (id){
+    switch (id) {
     case ID_GET_VERSION:
         send_message(id);
         break;
@@ -173,15 +182,16 @@ bool Simple_dataframe::interact(const MESSAGE_ID id){
     return true;
 }
 
-bool Simple_dataframe::recv_proc(){
+bool Simple_dataframe::recv_proc()
+{
     int i=0;
     trans->set_timeout(150);
     bool got=false;
-    while(true){
+    while(true) {
         Buffer data = trans->read();
 
-        for (int i=0;i<data.size();i++){
-            if (data_recv(data[i])){
+        for (int i=0;i<data.size();i++) {
+            if (data_recv(data[i])) {
                 got = true;
                 //std::cout << "ok" << std::endl;
                 break;
@@ -191,7 +201,7 @@ bool Simple_dataframe::recv_proc(){
         if (got)
             break;
         
-        if (trans->is_timeout()){
+        if (trans->is_timeout()) {
             ROS_WARN("timeout");
             return false;
         }
@@ -200,7 +210,6 @@ bool Simple_dataframe::recv_proc(){
 	    usleep(1000);
 #endif
     }
-
 
     if (!data_parse())
         return false;

@@ -2,11 +2,13 @@
 #include "data_holder.h"
 
 #include <std_msgs/Float32MultiArray.h>
+
 #ifdef USE_BOOST_SERIAL_TRANSPORT
 #include "serial_transport.h"
 #else
 #include "serial_transport2.h"
 #endif
+
 #include "simple_dataframe_master.h"
 #include <boost/assign/list_of.hpp>
 
@@ -18,36 +20,37 @@ BaseDriver::BaseDriver() : pn("~"), bdg(pn)
     bdg.init(&Data_holder::get()->parameter);
 
 #ifdef USE_BOOST_SERIAL_TRANSPORT
-    trans = boost::make_shared<Serial_transport>(bdg.port, bdg.buadrate);
+    trans = boost::make_shared<Serial_transport>(bdg.port, bdg.baudrate);
 #else
-    trans = boost::make_shared<Serial_transport2>(bdg.port, bdg.buadrate);
+    trans = boost::make_shared<Serial_transport2>(bdg.port, bdg.baudrate);
 #endif
 
     frame = boost::make_shared<Simple_dataframe>(trans.get());
 
 
-    ROS_INFO("BaseDriver startup");
-    if (trans->init())
+    ROS_INFO("[KUBOT]BaseDriver startup...");
+    if (trans->init()) 
     {
-        ROS_INFO("connected to main board");
-    } else
+        ROS_INFO("[KUBOT]connected to main board");
+    } 
+    else
     {
-        ROS_ERROR("oops!!! can't connect to main board");
+        ROS_ERROR("[KUBOT]oops!!! can't connect to main board, please check the usb connection or baudrate!");
         return;
     }
 
     ros::Duration(2).sleep(); //wait for device
-    ROS_INFO("end sleep");
+    ROS_INFO("[KUBOT]end sleep");
     
     frame->init();
 
-       for (int i=0;i<3;i++) {
+    for (int i=0;i<3;i++) {
         if (frame->interact(ID_GET_VERSION))
             break;
         ros::Duration(1).sleep(); //wait for device
     }
 
-    ROS_INFO("robot version:%s build time:%s", Data_holder::get()->firmware_info.version,
+    ROS_INFO("[KUBOT]robot version:%s build time:%s", Data_holder::get()->firmware_info.version,
                                         Data_holder::get()->firmware_info.time);
     
     init_cmd_odom();
@@ -71,10 +74,10 @@ void BaseDriver::init_cmd_odom()
 {
     frame->interact(ID_INIT_ODOM);
 
-    ROS_INFO_STREAM("subscribe cmd topic on [" << bdg.cmd_vel_topic << "]");
+    ROS_INFO_STREAM("[KUBOT]subscribe cmd topic on [" << bdg.cmd_vel_topic << "]");
     cmd_vel_sub = nh.subscribe(bdg.cmd_vel_topic, 1000, &BaseDriver::cmd_vel_callback, this);
 
-    ROS_INFO_STREAM("advertise odom topic on [" << bdg.odom_topic << "]");
+    ROS_INFO_STREAM("[KUBOT]advertise odom topic on [" << bdg.odom_topic << "]");
     odom_pub = nh.advertise<nav_msgs::Odometry>(bdg.odom_topic, 50);
 
     //init odom_trans
@@ -89,7 +92,8 @@ void BaseDriver::init_cmd_odom()
     odom.child_frame_id = bdg.base_frame;  
     odom.twist.twist.linear.y = 0;  
 
-    if (!bdg.publish_tf){
+    if (!bdg.publish_tf)
+    {
         odom.pose.covariance =  boost::assign::list_of(1e-3) (0) (0)  (0)  (0)  (0)
                                                     (0) (1e-3)  (0)  (0)  (0)  (0)
                                                     (0)   (0)  (1e6) (0)  (0)  (0)
@@ -169,7 +173,7 @@ void BaseDriver::cmd_vel_callback(const geometry_msgs::Twist& vel_cmd)
 
 void BaseDriver::work_loop()
 {
-    ros::Rate loop(1000);
+    ros::Rate loop(bdg.freq);
     while (ros::ok())
     {
         //boost::posix_time::ptime my_posix_time = ros::Time::now().toBoost();
@@ -222,7 +226,8 @@ void BaseDriver::update_odom()
     geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(th);
 
     //publish_tf
-    if (bdg.publish_tf){
+    if (bdg.publish_tf)
+    {
         odom_trans.header.stamp = current_time;  
         odom_trans.transform.translation.x = x;  
         odom_trans.transform.translation.y = y;  

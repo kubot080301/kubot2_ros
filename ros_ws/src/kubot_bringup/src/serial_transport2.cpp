@@ -16,7 +16,7 @@ bool Serial_transport2::init()
 {
     ROS_INFO("open %s %d", m_port.c_str(), m_buadrate);
     m_fd = ::open(m_port.c_str(), O_RDWR | O_NDELAY);
-    if(m_fd < 0) {
+    if (m_fd < 0) {
         ROS_ERROR("open %s err", m_port.c_str());
         return false;
     }
@@ -131,11 +131,13 @@ void Serial_transport2::write(Buffer &data)
     ::write(m_fd, data.data(), data.size());
 }
 
-void Serial_transport2::set_timeout(int t){
+void Serial_transport2::set_timeout(int t)
+{
     m_timeout_us = t*1000;
 }
 
-bool Serial_transport2::is_timeout(){
+bool Serial_transport2::is_timeout()
+{
     bool timeout = m_timeoutFlag;
     m_timeoutFlag = false;
     return timeout;

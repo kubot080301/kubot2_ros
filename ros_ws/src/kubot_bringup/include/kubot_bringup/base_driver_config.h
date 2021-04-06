@@ -1,9 +1,10 @@
-#ifndef BASE_DRIVER_CONFIG_
-#define BASE_DRIVER_CONFIG_
+#ifndef  KUBOT_BASE_DRIVER_CONFIG_
+#define KUBOT_BASE_DRIVER_CONFIG_
 
 #include <ros/ros.h>
 
 #define USE_DYNAMIC_RECONFIG
+
 #ifdef USE_DYNAMIC_RECONFIG
 #include <dynamic_reconfigure/server.h>
 #include "kubot_bringup/kubot_driverConfig.h"
@@ -18,6 +19,7 @@ public:
 
   void init(Robot_parameter* r);
   void SetRobotParameters();
+
 #ifdef USE_DYNAMIC_RECONFIG
 
   void dynamic_callback(kubot_bringup::kubot_driverConfig &config, uint32_t level);
@@ -32,17 +34,20 @@ public:
   Robot_parameter* rp;
   
   std::string port;
-  int32_t buadrate;
+  int32_t baudrate;
 
   std::string base_frame;
   std::string odom_frame;
 
   bool publish_tf;
-
+  
   //double ticks_per_meter;
 
   std::string cmd_vel_topic;
   std::string odom_topic;
+
+  	int32_t freq;
+
   bool out_pid_debug_enable;
 private:
 #ifdef USE_DYNAMIC_RECONFIG
@@ -55,4 +60,5 @@ private:
 };
 
 #endif
+
 // KUBOT_BASE_DRIVER_CONFIG_H_

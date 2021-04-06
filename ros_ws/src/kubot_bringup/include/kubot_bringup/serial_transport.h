@@ -1,9 +1,10 @@
-#ifndef TRANSPORT_SERIAL_H_
-#define TRANSPORT_SERIAL_H_
+#ifndef  KUBOT_TRANSPORT_SERIAL_H_
+#define KUBOT_TRANSPORT_SERIAL_H_
 
 #include "transport.h"
 
-class SerialParams {
+class SerialParams 
+{
 public:
 	std::string serialPort;
 	unsigned int baudRate;
@@ -30,10 +31,10 @@ public:
 	}
 };
 
-class Serial_transport : public Transport {
-
+class Serial_transport : public Transport 
+{
 public:
-	Serial_transport (std::string url, int32_t buadrate);
+	Serial_transport (std::string url, int32_t baudrate);
 
 	bool init();
     void set_timeout(int t);
@@ -73,4 +74,5 @@ private:
 
 
 #endif 
-// KUBOT_SERIAL_TRANSPORT_H_
+
+//KUBOT_TRANSPORT_SERIAL_H_

@@ -1,4 +1,4 @@
-#ifndef KUBOT_SIMPLE_DATAFRAME_MASTER_H_
+#ifndef  KUBOT_SIMPLE_DATAFRAME_MASTER_H_
 #define KUBOT_SIMPLE_DATAFRAME_MASTER_H_
 
 #include "simple_dataframe.h"
@@ -7,11 +7,13 @@
 //#include <boost/thread/lock_factories.hpp>
 
 class Transport;
-class Simple_dataframe : public Dataframe{
+class Simple_dataframe : public Dataframe
+{
     public:
         Simple_dataframe(Transport* trans=0);
         ~Simple_dataframe();
-        void register_notify(const MESSAGE_ID id, Notify* _nf){
+        void register_notify(const MESSAGE_ID id, Notify* _nf)
+        {
         }
 
         bool data_recv(unsigned char c);
@@ -37,4 +39,5 @@ class Simple_dataframe : public Dataframe{
         bool is_run;*/
 };
 #endif
+
 // KUBOT_SIMPLE_DATAFRAME_MASTER_H_

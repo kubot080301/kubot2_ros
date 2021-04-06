@@ -1,5 +1,5 @@
-#ifndef TRANSPORT_H_
-#define TRANSPORT_H_
+#ifndef  KUBOT_TRANSPORT_H_
+#define KUBOT_TRANSPORT_H_
 
 #include <iostream>
 #include <inttypes.h>
@@ -13,7 +13,8 @@
 
 typedef std::vector<uint8_t> Buffer;
 
-class Transport {
+class Transport 
+{
 public:
 	virtual ~Transport(){}
 	virtual bool init()=0;
@@ -24,7 +25,6 @@ public:
 	virtual void write(Buffer &data) = 0;
 };
 
-
-
 #endif
-// KUBOT_TRANSPORT_H_
+
+ // KUBOT_TRANSPORT_H_

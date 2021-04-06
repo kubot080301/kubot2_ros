@@ -3,14 +3,13 @@
 #include "data_holder.h"
 #define PI 3.1415926f
 
-
 BaseDriverConfig::BaseDriverConfig(ros::NodeHandle &p) : pn(p)
 {
 #ifdef USE_DYNAMIC_RECONFIG
-  param_update_flag = false;
+	param_update_flag = false;
 #endif
 
-  set_flag = true;
+	set_flag = true;
 }
 
 
@@ -21,43 +20,44 @@ BaseDriverConfig::~BaseDriverConfig()
 
 void BaseDriverConfig::init(Robot_parameter* r) 
 {
-  rp = r;
+	rp = r;
 
-  //comm param
-  pn.param<std::string>("port", port, "/dev/ttyACM0");
-  pn.param<int32_t>("buadrate", buadrate, 115200);
-  
-  ROS_INFO("port:%s buadrate:%d", port.c_str(), buadrate);
+	//comm param
+	pn.param<std::string>("port", port, "/dev/ttyACM0");
+	pn.param<int32_t>("baudrate", baudrate, 115200);
 
-  pn.param<std::string>("base_frame", base_frame, "base_link");
-  pn.param<std::string>("odom_frame", odom_frame, "odom");
-  pn.param<bool>("publish_tf", publish_tf, true);
+	ROS_INFO("port:%s baudrate:%d", port.c_str(), baudrate);
 
-  pn.param<bool>("out_pid_debug_enable", out_pid_debug_enable, false);
-  ROS_INFO("out_pid_debug_enable:%d", out_pid_debug_enable);
+	pn.param<std::string>("base_frame", base_frame, "base_link");
+	pn.param<std::string>("odom_frame", odom_frame, "odom");
+	pn.param<bool>("publish_tf", publish_tf, true);
 
-  //topic name param
-  pn.param<std::string>("cmd_vel_topic", cmd_vel_topic, "cmd_vel");
-  pn.param<std::string>("odom_topic", odom_topic, "odom");
+	pn.param<bool>("out_pid_debug_enable", out_pid_debug_enable, false);
+	ROS_INFO("out_pid_debug_enable:%d", out_pid_debug_enable);
+
+	//topic name param
+	pn.param<std::string>("cmd_vel_topic", cmd_vel_topic, "cmd_vel");
+	pn.param<std::string>("odom_topic", odom_topic, "odom");
+
+		pn.param<int32_t>("freq", freq, 1000);
 }
 
 void BaseDriverConfig::SetRobotParameters() 
 {
 #ifdef USE_DYNAMIC_RECONFIG
-  static bool flag=true;
-  if (flag)
-  {
-    flag = false;
-    f = boost::bind(&BaseDriverConfig::dynamic_callback, this, _1, _2);
-    server.setCallback(f);
-  }
+	static bool flag=true;
+	if (flag) {
+		flag = false;
+		f = boost::bind(&BaseDriverConfig::dynamic_callback, this, _1, _2);
+		server.setCallback(f);
+	}
 #endif
 }
 
 #ifdef USE_DYNAMIC_RECONFIG
-void BaseDriverConfig::dynamic_callback(kubot_bringup::kubot_driverConfig &config, uint32_t level) {
-  if (set_flag)
-  {
+void BaseDriverConfig::dynamic_callback(kubot_bringup::kubot_driverConfig &config, uint32_t level)
+{
+	if (set_flag) {
     set_flag = false;
     config.wheel_diameter = rp->wheel_diameter;
     config.wheel_track = rp->wheel_track;
