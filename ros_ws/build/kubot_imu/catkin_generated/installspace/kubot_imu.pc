@@ -1,8 +1,0 @@
-prefix=/home/kubot/kubot2_ros/ros_ws/install
-
-Name: kubot_imu
-Description: Description of kubot_imu
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

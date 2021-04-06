@@ -1,8 +1,0 @@
-prefix=/home/kubot/kubot2_ros/ros_ws/install
-
-Name: ydlidar
-Description: Description of ydlidar
-Version: 1.2.1
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

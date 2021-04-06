@@ -1,8 +1,0 @@
-prefix=/home/kubot/kubot2_ros/ros_ws/install
-
-Name: kubot_slam_3d
-Description: Description of kubot_slam_3d
-Version: 0.5.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

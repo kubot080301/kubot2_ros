@@ -1,2 +1,0 @@
-imu_filter_madgwick:kubot:kubot_bringup:kubot_description:kubot_imu:kubot_led:kubot_msgs:kubot_navigation:kubot_slam_3d:kubot_tools/kubot_3dsensor:kubot_tools/kubot_lidar:kubot_tools/neuronbot2_led:kubot_tools/rplidar_ros:kubot_tools/simple_follower:kubot_tools/ydlidar-1.2.1
--DCATKIN_DEVEL_PREFIX=/home/kubot/kubot2_ros/ros_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kubot/kubot2_ros/ros_ws/install -G Unix Makefiles

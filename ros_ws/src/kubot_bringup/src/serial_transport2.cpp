@@ -1,7 +1,7 @@
 #include "serial_transport2.h"
 #include <ros/ros.h>
 
-Serial_transport2::Serial_transport2(std::string port, int32_t buadrate) : m_port(port), m_buadrate(buadrate), m_timeout_us(1000*1000)
+Serial_transport2::Serial_transport2(std::string port, int32_t baudrate) : m_port(port), m_baudrate(baudrate), m_timeout_us(1000*1000)
 {
     m_timeoutFlag = false;
 }
@@ -14,7 +14,7 @@ Serial_transport2::~Serial_transport2()
 
 bool Serial_transport2::init()
 {
-    ROS_INFO("open %s %d", m_port.c_str(), m_buadrate);
+    ROS_INFO("open %s %d", m_port.c_str(), m_baudrate);
     m_fd = ::open(m_port.c_str(), O_RDWR | O_NDELAY);
     if (m_fd < 0) {
         ROS_ERROR("open %s err", m_port.c_str());
@@ -29,13 +29,13 @@ bool Serial_transport2::init()
     struct termios opt;
     tcgetattr(m_fd, &opt);
 
-    if (m_buadrate == 921600) {
+    if (m_baudrate == 921600) {
         cfsetispeed(&opt, B921600);
         cfsetospeed(&opt, B921600);
-    } else if (m_buadrate == 1500000) {
+    } else if (m_baudrate == 1500000) {
         cfsetispeed(&opt, B1500000);
         cfsetospeed(&opt, B1500000);
-    } else { //if (m_buadrate == 115200) 
+    } else { //if (m_baudrate == 115200) 
         cfsetispeed(&opt, B115200);
         cfsetospeed(&opt, B115200);
     } 

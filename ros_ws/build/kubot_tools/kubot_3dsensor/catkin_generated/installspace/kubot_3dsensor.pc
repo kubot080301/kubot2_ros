@@ -1,8 +1,0 @@
-prefix=/home/kubot/kubot2_ros/ros_ws/install
-
-Name: kubot_3dsensor
-Description: Description of kubot_3dsensor
-Version: 0.5.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

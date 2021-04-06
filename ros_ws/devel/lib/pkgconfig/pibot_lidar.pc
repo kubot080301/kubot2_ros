@@ -1,8 +1,0 @@
-prefix=/home/kubot/kubot2_ros/ros_ws/devel
-
-Name: pibot_lidar
-Description: Description of pibot_lidar
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

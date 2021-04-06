@@ -107,4 +107,6 @@ private:
   ros::Publisher battery_voltage_pub;
 };
 
+#endif
+
 // KUBOT_BASE_DRIVER_H_
